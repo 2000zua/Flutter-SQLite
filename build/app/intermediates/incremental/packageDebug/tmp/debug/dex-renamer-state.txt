@@ -1,4 +1,4 @@
-#Tue Mar 07 19:24:39 MSK 2023
-base.0=C\:\\Users\\Programador\\Desktop\\Estudar Flutter\\Flutter_SQLite\\flutter_sqlite\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Tue Mar 07 21:42:26 MSK 2023
+base.0=C\:\\Users\\Programador\\Desktop\\Estudar Flutter\\Flutter_SQLite\\flutter_sqlite\\Flutter-Sqlite\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

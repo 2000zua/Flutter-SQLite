@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'database/dbhelper.dart';
+import 'models/dish.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -35,13 +38,30 @@ class _MyAppState extends State<MyApp> {
     print(preco);
   }
 
-  void deleteData() {}
+  void deleteData() {
+    var dbHelper = BDHelper();
+    dbHelper.deleteDish(nome);
+  }
 
-  void updateData() {}
+  void updateData() {
+    var dbHelper = BDHelper();
+    var dish = Dish(nome, descricao, preco);
+    dbHelper.updateDish(dish);
+  }
 
-  void readData() {}
+  void readData() {
+    var dbHelper = BDHelper();
+    Future<Dish> dish = dbHelper.readDish(nome);
+    dish.then((value) {
+      print("${value.nome}, ${value.descricao},${value.price}");
+    });
+  }
 
-  void createData() {}
+  void createData() {
+    var dbHelper = BDHelper();
+    var dish = Dish(nome, descricao, preco);
+    dbHelper.createDish(dish);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,54 +97,58 @@ class _MyAppState extends State<MyApp> {
                   getProce(price);
                 },
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,),
-                    onPressed: () {
-                      createData();
-                    },
-                    child: const Text("Create"),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 50, 70, 189)),
-                    onPressed: () {
-                      readData();
-                    },
-                    child: const Text("Read"),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 224, 116, 15)),
-                    onPressed: () {
-                      updateData();
-                    },
-                    child: const Text("Update"),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 230, 7, 7)),
-                    onPressed: () {
-                      deleteData();
-                    },
-                    child: const Text("Delete"),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      onPressed: () {
+                        createData();
+                      },
+                      child: const Text("Create"),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 50, 70, 189)),
+                      onPressed: () {
+                        readData();
+                      },
+                      child: const Text("Read"),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 224, 116, 15)),
+                      onPressed: () {
+                        updateData();
+                      },
+                      child: const Text("Update"),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 230, 7, 7)),
+                      onPressed: () {
+                        deleteData();
+                      },
+                      child: const Text("Delete"),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
