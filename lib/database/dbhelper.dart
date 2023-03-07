@@ -50,8 +50,7 @@ class BDHelper {
   //Read Data
   Future<Dish> readDish(String name) async {
     var dbReady = await db;
-    var read =
-        await dbReady.rawQuery("SELECT * FROM Dishes WHERE name='$name'");
+    var read =await dbReady.rawQuery("SELECT * FROM Dishes WHERE name='$name'");
 
     return Dish.fromMap(read[0]);
   }
@@ -59,7 +58,11 @@ class BDHelper {
   //Read all
   Future<List<Dish>> readAllDishes() async {
     var dbReady = await db;
-    List<Map> dishes = await dbReady.rawQuery("SELECT * FROM Dishes");
-    
+    List<Map> list = await dbReady.rawQuery("SELECT * FROM Dishes");
+    List<Dish> dishes = [];
+    for (var i = 0; i < list.length; i++) {
+      dishes.add(Dish(list[i]["name"], list[i]["description"], list[i]["price"]));
+    }
+    return dishes;
   }
 }

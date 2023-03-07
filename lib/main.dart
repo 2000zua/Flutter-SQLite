@@ -63,6 +63,12 @@ class _MyAppState extends State<MyApp> {
     dbHelper.createDish(dish);
   }
 
+  Future<List<Dish>> getAllDishes() async {
+    var dbHelper = BDHelper();
+    Future<List<Dish>> dishes = dbHelper.readAllDishes();
+    return dishes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -98,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -149,6 +155,33 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
+              ),
+              Row(
+                children: const [
+                  Expanded(child: Text("Nome: ")),
+                  Expanded(child: Text("Descricao: ")),
+                  Expanded(child: Text("Price: ")),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FutureBuilder<List<Dish>>(
+                    future: getAllDishes(),
+                    builder: (context, snapshot) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: const [
+                              Expanded(child: Text(snapshot.data[index].nome.toString()),),
+                              Expanded(child: Text(snapshot.data[index].descricao.toString()),),
+                              Expanded(child: Text(snapshot.data[index].price.toString()),),
+                            ],
+                          ),
+                        },
+                      );
+                    }),
               ),
             ],
           ),
